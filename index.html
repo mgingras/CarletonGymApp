@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="author" content="Martin Gingras">
+  <meta name="description" content="An application to track how many people are at the Carleton Gym.">
+  <meta name="keywords" content="Martin,Gingras,Software,Programming,Programmer,Web Development,Developer,Canada,Carleton,University,Student,Engineering,Web,Ottawa,Gym,Junkie,GymJunkie,Workout,Schedule,Tracker,Carleton,University,CarletonUniversity">
+  <!-- Apple Shit -->
+  <meta name="apple-mobile-web-app-capable" content="yes" >
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" >
+
+  <link rel="apple-touch-icon" href="/img/gymJunkieNoTransparent.png" >
+  <link rel="apple-touch-icon-precomposed" href="/img/gymJunkieNoTransparent.png" >
+
+  <meta charset="utf-8">
+  <!-- standard viewport tag to set the viewport to the device's width
+  , Android 2.3 devices need this so 100% width works properly and
+  doesn't allow children to blow up the viewport width-->
+  <meta name="viewport" id="vp" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" >
+  <!-- width=device-width causes the iPhone 5 to letterbox the app, so
+  we want to exclude it for iPhone 5 to allow full screen apps -->
+  <meta name="viewport" id="vp6" content="initial-scale=1.0,user-scalable=no,maximum-scale=1" media="(device-height: 568px)" >
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title>GymJunkie</title>
+
+  <!-- Open Graph Shit -->
+  <meta property="og:title" content="GymJunkie">
+  <meta property="og:image" content="http://gymjunkie.herokuapp.com/img/gymJunkie.png">
+  <meta property="og:url" content="http://gymjunkie.herokuapp.com">
+  <meta property="og:description" content="An application to track how many people are at the Carleton Gym.">
+
+  <!-- For IE -->
+  <link rel="shortcut icon" href="img/gymJunkie.ico" type="image/x-icon">
+
+  <!-- For Everything else... -->
+  <link rel="icon" href="img/gymJunkie.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="css/framework7.css">
+  <!-- <link rel="stylesheet" href="css/framework7.themes.min.css"> -->
+  <link rel="stylesheet" href="css/my-app.css">
+  <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+
+  <div class="statusbar-overlay"></div>
+
+  <div class="panel-overlay"></div>
+
+  <div class="panel panel-left panel-reveal">
+    <div class="content-block">
+      <p>Left panel content goes here</p>
+    </div>
+  </div>
+
+  <div class="panel panel-right panel-cover">
+    <div class="content-block">
+      <p>Right panel content goes here</p>
+    </div>
+  </div>
+
+
+  <div class="views tabs toolbar-through">
+
+    <div id="view-1" class="view view-main tab active">
+
+      <div class="pages">
+
+        <div data-page="index-1" class="page">
+
+          <div class="page-content">
+            <div class="content-block-title">
+              <img src="img/cu.gif" alt="Carleton" style='width:200px;'>
+              <!-- <h2 style='margin-bottom:0px;'><small>Carleton</small></h2> -->
+              <h1 style='margin-top:0px;margin-bottom:0px;font-size:50px;'>GymJunkie</h1>
+            </div>
+            <div class="content-block">
+              <div class="content-block-inner">
+                <p>Hate going to the gym when it's full? <strong>We know that feel bro</strong>. That's why we built GymJunkie,
+                  to show you how many people are at the gym right now and when today will probably be a good time to come by.</p>
+                </div>
+              </div>
+              <div class="content-block-title" style='font-size:40px;'>There are</div>
+              <div class="content-block">
+                <div style='text-align:center;'>
+                  <div style='width:325px;margin:auto;'>
+                    <span id='numberOfPeople' style='font-size:200px;color:black;line-height:150px;'>
+                      54
+                    </span>
+                    <script>
+                      var min = 30;
+                      var max = 60;
+                      var numPeople =  Math.floor(Math.random() * (max - min)) + min;
+                      $('#numberOfPeople').html(numPeople);
+                    </script>
+                    <span style='float:right;'>
+                      <h4>PEOPLE AT THE GYM...</h4>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="view-2" class="view tab">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="center sliding">Historic Trend</div>
+          </div>
+        </div>
+        <div class="pages navbar-through">
+          <div data-page="index-2" class="page">
+            <div class="page-content">
+              <div class="content-block" style='margin-top:0px;margin-bottom:0px;'>
+                <p style='margin-bottom:5px;'>This is the historic trend for the number of people at the Carleton Gym</p>
+              </div>
+              <div class="content-block" style='margin-bottom:0px;margin-top:0px;'>
+                <h4 style='margin:0px;' id="dayOfWeek">Monday</h4>
+                <div style='text-align:center;'>
+                  <img id='gymChart' src='img/gymMonday.png' style='width:100%;height:auto;max-width:345px;'></img>
+                </div>
+              </div>
+              <div class="content-block-title" style='margin-top:0px;'>Day of Week</div>
+              <div class="content-block">
+                <script>
+                  function changeDay(day){
+                    $('#dayOfWeek').html(day);
+                    $('#gymChart').attr('src', 'img/gym' + day + '.png');
+                  }
+                </script>
+                <div class="row">
+                  <div class="col-15 dayChanger button" onclick="changeDay('Monday')"><a href="#">M</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeDay('Tuesday')"><a href="#">T</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeDay('Wednesday')"><a href="#">W</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeDay('Thursday')"><a href="#">Th</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeDay('Friday')"><a href="#">F</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeDay('Saturday')"><a href="#">Sa</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeDay('Sunday')"><a href="#">Su</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="view-3" class="view tab">
+        <div class="pages navbar-fixed">
+          <div data-page="index-3" class="page">
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="center">Class Schedule</div>
+              </div>
+            </div>
+            <div class="page-content">
+              <div class="content-block" style='margin-bottom:5px;margin-top:0px;'>
+                <h4 style='margin:0px;' id="schedDayOfWeek">Monday</h4>
+                <div style='text-align:center;margin-top:5px;'>
+                  <img src="img/scheduleMonday.png" alt="Class Schedule" id='classSchdule' style='height:500px;'>
+                </div>
+              </div>
+              <div class="content-block" style='margin-top:0px;margin-bottom:15px;'>
+                <script>
+                  function changeScheduleDay(day){
+                    $('#schedDayOfWeek').html(day);
+                    $('#classSchdule').attr('src', 'img/schedule' + day + '.png');
+                  }
+                </script>
+                <div class="row">
+                  <div class="col-15 dayChanger button" onclick="changeScheduleDay('Monday')"><a href="#">M</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeScheduleDay('Tuesday')"><a href="#">T</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeScheduleDay('Wednesday')"><a href="#">W</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeScheduleDay('Thursday')"><a href="#">Th</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeScheduleDay('Friday')"><a href="#">F</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeScheduleDay('Saturday')"><a href="#">Sa</a></div>
+                  <div class="col-15 dayChanger button" onclick="changeScheduleDay('Sunday')"><a href="#">Su</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="view-4" class="view tab">
+        <div class="pages navbar-fixed">
+          <div data-page="index-4" class="page">
+            <div class="navbar">
+              <div class="navbar-inner">
+                <div class="center">Announcements</div>
+              </div>
+            </div>
+            <div class="page-content">
+              <style>
+                .list-block .item-subtitle{
+                  white-space:normal;
+                }
+              </style>
+              <div class="list-block media-list">
+                <ul>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">Nov 30th 2014</div>
+                      </div>
+                      <div class="item-subtitle">Our holiday hours have now been posted, please visit <a href='http://athletics.carleton.ca/hours/'>http://athletics.carleton.ca/hours/</a> to see our reduced holiday hours.</div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">Nov 29th 2014</div>
+                      </div>
+                      <div class="item-subtitle">Black Friday sale on gym membersips. <strong>15%</strong> off our yearly passes and <strong>20%</strong> off of our packets of one time visit vouchers.</div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">Nov 23rd 2014</div>
+                      </div>
+                      <div class="item-subtitle">The Gym will be closing early this weekend for Thanksgiving.</div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">Nov 3rd 2014</div>
+                      </div>
+                      <div class="item-subtitle">This Thursday we will be hosting an eat healthier symposium. Come out and learn how to eat better.</div>
+                    </div>
+                  </li>
+                  <li class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title-row">
+                        <div class="item-title">Sept 7th 2014</div>
+                      </div>
+                      <div class="item-subtitle">Welcom new Ravens, come out and try out our classes!!! All classes for the next week are free to first year Carleton students!!</div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toolbar tabbar tabbar-labels">
+        <div class="toolbar-inner"><a href="#view-1" class="tab-link active"> <i class="icon tabbar-demo-icon-1"></i><span class="tabbar-label">Information</span></a><a href="#view-2" class="tab-link"><i class="icon tabbar-demo-icon-2"></i><span class="tabbar-label">Trend</span></a><a href="#view-3" class="tab-link"> <i class="icon tabbar-demo-icon-3"></i><span class="tabbar-label">Schedule</span></a><a href="#view-4" class="tab-link"> <i class="icon tabbar-demo-icon-4"><span class="badge bg-red">4</span></i><span class="tabbar-label">Announcements</span></a></div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="js/framework7.min.js"></script>
+    <script type="text/javascript" src="js/my-app.js"></script>
+
+  </body>
+  </html>

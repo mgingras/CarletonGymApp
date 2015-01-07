@@ -1,0 +1,13 @@
+{
+  "name": "GYMAPP",
+  "version": "1.0.0",
+  "description": "See how many people are at the Carleton Gym",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "harp": "^0.14.0",
+    "newrelic": "^1.14.0"
+  }
+}
